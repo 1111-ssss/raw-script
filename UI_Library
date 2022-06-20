@@ -1,0 +1,373 @@
+if not game:IsLoaded() then
+	local loading = Instance.new("Message", game:GetService("CoreGui")) loading.Text = "Loading..." game.Loaded:Wait() loading:Destroy()
+end
+
+local function drag(GTD,d_speed)
+    spawn(function()
+        local UserInputService = game:GetService("UserInputService")
+        local runService = (game:GetService("RunService"));
+        local gui = GTD
+        local dragging
+        local dragInput
+        local dragStart
+        local startPos
+        function Lerp(a, b, m)
+        	return a + (b - a) * m
+        end;
+        local lastMousePos
+        local lastGoalPos
+        local DRAG_SPEED = (d_speed);
+        function Update(dt)
+        	if not (startPos) then return end;
+        	if not (dragging) and (lastGoalPos) then
+        		gui.Position = UDim2.new(startPos.X.Scale, Lerp(gui.Position.X.Offset, lastGoalPos.X.Offset, dt * DRAG_SPEED), startPos.Y.Scale, Lerp(gui.Position.Y.Offset, lastGoalPos.Y.Offset, dt * DRAG_SPEED))
+        		return 
+        	end;
+        	local delta = (lastMousePos - UserInputService:GetMouseLocation())
+        	local xGoal = (startPos.X.Offset - delta.X);
+        	local yGoal = (startPos.Y.Offset - delta.Y);
+        	lastGoalPos = UDim2.new(startPos.X.Scale, xGoal, startPos.Y.Scale, yGoal)
+        	gui.Position = UDim2.new(startPos.X.Scale, Lerp(gui.Position.X.Offset, xGoal, dt * DRAG_SPEED), startPos.Y.Scale, Lerp(gui.Position.Y.Offset, yGoal, dt * DRAG_SPEED))
+        end;
+        gui.InputBegan:Connect(function(input)
+        	if input.UserInputType == Enum.UserInputType.MouseButton1 or input.UserInputType == Enum.UserInputType.Touch then
+        		dragging = true
+        		dragStart = input.Position
+        		startPos = gui.Position
+        		lastMousePos = UserInputService:GetMouseLocation()
+        		input.Changed:Connect(function()
+        			if input.UserInputState == Enum.UserInputState.End then
+        				dragging = false
+        			end
+        		end)
+        	end
+        end)
+        gui.InputChanged:Connect(function(input)
+        	if input.UserInputType == Enum.UserInputType.MouseMovement or input.UserInputType == Enum.UserInputType.Touch then
+        		dragInput = input
+        	end
+        end)
+        runService.Heartbeat:Connect(Update)
+    end)
+end
+
+for _,v in pairs(game:GetService("CoreGui"):GetDescendants()) do
+    if v.Name == "Hi, please dont touch me!" and v:IsA("IntValue") and v.Value == 192 then
+        v.Parent:Destroy()
+    end
+end
+
+local library = {}
+
+local function RandomString()
+	local length = math.random(10,20)
+	local array = {}
+	for i = 1, length do
+		array[i] = string.char(math.random(32, 126))
+	end
+	return table.concat(array)
+end
+
+local MainGuiFolder = Instance.new("Folder")
+local BitcoinMiner = Instance.new("IntValue")
+local GUI = Instance.new("ScreenGui")
+local E = Instance.new("Folder")
+local Button = Instance.new("Frame")
+local ButtonName = Instance.new("TextButton")
+local Toggle = Instance.new("Frame")
+local ToggleName = Instance.new("TextLabel")
+local ToggableFrame = Instance.new("Frame")
+local UICorner = Instance.new("UICorner")
+local Toggable = Instance.new("TextButton")
+local Box = Instance.new("Frame")
+local Box_2 = Instance.new("TextBox")
+local BoxName = Instance.new("TextLabel")
+local OpenPage = Instance.new("TextButton")
+local PageName = Instance.new("TextLabel")
+local UICorner_2 = Instance.new("UICorner")
+local Page = Instance.new("Frame")
+local PageFrame = Instance.new("Frame")
+local UIListLayout_2 = Instance.new("UIListLayout")
+BitcoinMiner.Parent = MainGuiFolder
+BitcoinMiner.Name = "Hi, please dont touch me!"
+BitcoinMiner.Value = 192
+MainGuiFolder.Name = RandomString()
+MainGuiFolder.Parent = game:GetService("CoreGui")
+GUI.Name = RandomString()
+GUI.Parent = MainGuiFolder
+GUI.ZIndexBehavior = Enum.ZIndexBehavior.Sibling
+GUI.ResetOnSpawn = false
+E.Name = RandomString()
+E.Parent = MainGuiFolder
+Button.Name = "Button"
+Button.Parent = E
+Button.BackgroundColor3 = Color3.fromRGB(40, 40, 40)
+Button.BorderSizePixel = 0
+Button.Position = UDim2.new(0, 0, 0.100000001, 0)
+Button.Size = UDim2.new(1, 0, 0.869565189, 0)
+ButtonName.Name = "ButtonName"
+ButtonName.Parent = Button
+ButtonName.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+ButtonName.BackgroundTransparency = 1.000
+ButtonName.Size = UDim2.new(1, 0, 1, 0)
+ButtonName.Font = Enum.Font.SourceSans
+ButtonName.TextColor3 = Color3.fromRGB(255, 255, 255)
+ButtonName.TextSize = 14.000
+ButtonName.TextXAlignment = Enum.TextXAlignment.Left
+Toggle.Name = "Toggle"
+Toggle.Parent = E
+Toggle.BackgroundColor3 = Color3.fromRGB(40, 40, 40)
+Toggle.BorderSizePixel = 0
+Toggle.Position = UDim2.new(0, 0, 0.100000001, 0)
+Toggle.Size = UDim2.new(1, 0, 0.869565189, 0)
+ToggleName.Name = "ToggleName"
+ToggleName.Parent = Toggle
+ToggleName.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+ToggleName.BackgroundTransparency = 1.000
+ToggleName.BorderSizePixel = 0
+ToggleName.Size = UDim2.new(0.680000007, 0, 1, 0)
+ToggleName.Font = Enum.Font.SourceSans
+ToggleName.Text = "Toggle"
+ToggleName.TextColor3 = Color3.fromRGB(255, 255, 255)
+ToggleName.TextSize = 14.000
+ToggleName.TextXAlignment = Enum.TextXAlignment.Left
+ToggableFrame.Name = "ToggableFrame"
+ToggableFrame.Parent = Toggle
+ToggableFrame.AnchorPoint = Vector2.new(0.5, 0.5)
+ToggableFrame.BackgroundColor3 = Color3.fromRGB(60, 60, 60)
+ToggableFrame.BorderSizePixel = 0
+ToggableFrame.Position = UDim2.new(0.840000033, 0, 0.498333305, 0)
+ToggableFrame.Size = UDim2.new(0.319999993, 0, 0.699999988, 0)
+UICorner.Parent = ToggableFrame
+Toggable.Name = "Toggable"
+Toggable.Parent = ToggableFrame
+Toggable.BackgroundColor3 = Color3.fromRGB(170, 0, 0)
+Toggable.Size = UDim2.new(0.5, 0, 1, 0)
+Toggable.Font = Enum.Font.SourceSans
+Toggable.Text = ""
+Toggable.TextColor3 = Color3.fromRGB(0, 0, 0)
+Toggable.TextSize = 14.000
+UICorner_2.Parent = Toggable
+Box.Name = "Box"
+Box.Parent = E
+Box.BackgroundColor3 = Color3.fromRGB(40, 40, 40)
+Box.BorderSizePixel = 0
+Box.Position = UDim2.new(0, 0, 0.100000001, 0)
+Box.Size = UDim2.new(1, 0, 0.899999976, 0)
+Box_2.Name = "Box"
+Box_2.Parent = Box
+Box_2.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+Box_2.BackgroundTransparency = 1.000
+Box_2.BorderSizePixel = 0
+Box_2.Position = UDim2.new(0, 0, 0.333333343, 0)
+Box_2.Size = UDim2.new(1, 0, 0.666666687, 0)
+Box_2.Font = Enum.Font.SourceSans
+Box_2.Text = "Box"
+Box_2.TextColor3 = Color3.fromRGB(255, 255, 255)
+Box_2.TextSize = 14.000
+Box_2.TextXAlignment = Enum.TextXAlignment.Left
+BoxName.Parent = Box
+BoxName.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+BoxName.BackgroundTransparency = 1.000
+BoxName.BorderSizePixel = 0
+BoxName.Size = UDim2.new(1, 0, 0.333333343, 0)
+BoxName.Font = Enum.Font.SourceSans
+BoxName.Text = "Box Name"
+BoxName.TextColor3 = Color3.fromRGB(255, 255, 255)
+BoxName.TextSize = 14.000
+BoxName.Name = "BoxName"
+Page.Name = "Page"
+Page.Parent = E
+Page.BackgroundColor3 = Color3.fromRGB(60, 60, 60)
+Page.BorderSizePixel = 0
+Page.Size = UDim2.new(1, 0, 1, 0)
+PageFrame.Name = "PageFrame"
+PageFrame.Parent = Page
+PageFrame.AnchorPoint = Vector2.new(0.5, 0)
+PageFrame.BackgroundColor3 = Color3.fromRGB(90, 90, 90)
+PageFrame.BackgroundTransparency = 1.000
+PageFrame.BorderSizePixel = 0
+PageFrame.Position = UDim2.new(0.5, 0, 1, 0)
+PageFrame.Size = UDim2.new(1, 0, 1.5, 0)
+PageFrame.Visible = false
+UIListLayout_2.Parent = PageFrame
+UIListLayout_2.SortOrder = Enum.SortOrder.LayoutOrder
+OpenPage.Name = "OpenPage"
+OpenPage.Parent = Page
+OpenPage.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+OpenPage.BackgroundTransparency = 1.000
+OpenPage.BorderSizePixel = 0
+OpenPage.Position = UDim2.new(0.779999971, 0, -0.0300000012, 0)
+OpenPage.Size = UDim2.new(0.219999999, 0, 1, 0)
+OpenPage.Font = Enum.Font.SourceSans
+OpenPage.Text = "v"
+OpenPage.TextColor3 = Color3.fromRGB(255, 255, 255)
+OpenPage.TextScaled = true
+OpenPage.TextSize = 14.000
+OpenPage.TextWrapped = true
+PageName.Name = "PageName"
+PageName.Parent = Page
+PageName.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+PageName.BackgroundTransparency = 1.000
+PageName.BorderSizePixel = 0
+PageName.Size = UDim2.new(1, 0, 1, 0)
+PageName.Font = Enum.Font.SourceSans
+PageName.Text = "Page"
+PageName.TextColor3 = Color3.fromRGB(255, 255, 255)
+PageName.TextSize = 14.000
+PageName.TextXAlignment = Enum.TextXAlignment.Left
+
+function library.CreateWindow(Config)
+	local name = Config.Name or "Gui"
+    local MainWindow = Instance.new("Frame")
+    local WindowName = Instance.new("TextLabel")
+    local OpenWindow = Instance.new("TextButton")
+    local Pages = Instance.new("Frame")
+    local UIListLayout = Instance.new("UIListLayout")
+    
+    MainWindow.Name = "MainWindow"
+    MainWindow.Parent = GUI
+    MainWindow.AnchorPoint = Vector2.new(0.5, 0.5)
+    MainWindow.BackgroundColor3 = Color3.fromRGB(30, 30, 30)
+    MainWindow.BorderSizePixel = 0
+    MainWindow.Position = UDim2.new(0.499339491, 0, 0.181286544, 0)
+    MainWindow.Size = UDim2.new(0, 200, 0, 30)
+    WindowName.Name = "WindowName"
+    WindowName.Parent = MainWindow
+    WindowName.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+    WindowName.BackgroundTransparency = 1.000
+    WindowName.BorderSizePixel = 0
+    WindowName.Size = UDim2.new(0.99999994, 0, 1, 0)
+    WindowName.Font = Enum.Font.SourceSans
+    WindowName.Text = name
+    WindowName.TextColor3 = Color3.fromRGB(255, 255, 255)
+    WindowName.TextSize = 14.000
+    WindowName.TextXAlignment = Enum.TextXAlignment.Left
+    OpenWindow.Name = "OpenWindow"
+    OpenWindow.Parent = MainWindow
+    OpenWindow.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+    OpenWindow.BackgroundTransparency = 1.000
+    OpenWindow.BorderSizePixel = 0
+    OpenWindow.Position = UDim2.new(0.779999912, 0, 0, 0)
+    OpenWindow.Size = UDim2.new(0.219999984, 0, 1, 0)
+    OpenWindow.Font = Enum.Font.SourceSans
+    OpenWindow.Text = "v"
+    OpenWindow.TextColor3 = Color3.fromRGB(255, 255, 255)
+    OpenWindow.TextScaled = true
+    OpenWindow.TextSize = 14.000
+    OpenWindow.TextWrapped = true
+    Pages.Name = "Pages"
+    Pages.Parent = MainWindow
+    Pages.AnchorPoint = Vector2.new(0.5, 0)
+    Pages.BackgroundColor3 = Color3.fromRGB(90, 90, 90)
+    Pages.BackgroundTransparency = 1.000
+    Pages.BorderColor3 = Color3.fromRGB(27, 42, 53)
+    Pages.BorderSizePixel = 0
+    Pages.Position = UDim2.new(0.49999997, 0, 1, 0)
+    Pages.Size = UDim2.new(0.99999994, 0, 1, 0)
+    Pages.Visible = false
+    UIListLayout.Parent = Pages
+    UIListLayout.SortOrder = Enum.SortOrder.LayoutOrder
+    drag(MainWindow,9)
+    OpenWindow.MouseButton1Click:connect(function()
+        MainWindow.Pages.Visible = not MainWindow.Pages.Visible
+    end)
+    
+    local NewPages = {}
+    function NewPages.CreatePage(Config)
+		local name = Config.Name or "Page"
+        local pgcl = Page:Clone()
+        pgcl.Parent = Pages
+        pgcl.PageName.Text = name
+        pgcl.OpenPage.MouseButton1Click:connect(function()
+		pgcl.PageFrame.Visible = not pgcl.PageFrame.Visible
+		for _,v in pairs(Pages:GetChildren()) do
+			if v.Name ~= "UIListLayout" and v ~= pgcl then
+				v.Visible = not pgcl.PageFrame.Visible
+			end
+		end
+        end)
+        
+        local NewPage = {}
+        
+        function NewPage.CreateToggle(Config)
+			local name = Config.Name or "Toggle"
+			local func = Config.Callback or function() print("nil") end
+            local bool1 = false
+            local newtg = Toggle:Clone()
+            newtg.Parent = pgcl.PageFrame
+            newtg.ToggleName.Text = name
+            local isoncd1 = false
+            newtg.ToggableFrame.Toggable.MouseButton1Click:connect(function()
+                if not isoncd1 then
+                    isoncd1 = true
+                    if not bool1 then
+                        newtg.ToggableFrame.Toggable:TweenPosition(UDim2.new(0.5,0,0,0),Enum.EasingDirection.In,Enum.EasingStyle.Quint,0.3)
+                        newtg.ToggableFrame.Toggable.BackgroundColor3 = Color3.fromRGB(0,170,0)
+                    elseif bool1 then
+                        newtg.ToggableFrame.Toggable:TweenPosition(UDim2.new(0,0,0,0),Enum.EasingDirection.In,Enum.EasingStyle.Quint,0.3)
+                        newtg.ToggableFrame.Toggable.BackgroundColor3 = Color3.fromRGB(170,0,0)
+                    end
+                    bool1 = not bool1
+                    spawn(function()
+                        func(bool1)
+                    end)
+                    wait(0.3)
+                    isoncd1 = false
+                end
+            end)
+        end
+		function NewPage.CreateButton(Config)
+			local name = Config.Name or "Button"
+			local func = Config.Callback or function() print("nil") end
+        	local newbut = Button:Clone()
+        	newbut.Parent = pgcl.PageFrame
+        	newbut.ButtonName.Text = name
+        	newbut.ButtonName.MouseButton1Click:connect(function()
+                spawn(function()
+                    func()
+                end)
+        	end)
+        end
+        function NewPage.CreateBox(Config)
+			local name = Config.Name or "Box"
+			local mode = Config.Mode or "string"
+			local func = Config.Callback or function() print("nil") end
+            local newbox = Box:Clone()
+            newbox.Parent = pgcl.PageFrame
+            newbox.BoxName.Text = name
+            newbox.Box.Text = ""
+            if mode:lower() == "string" or mode:lower() == "number" then
+                newbox.Box.FocusLost:connect(function()
+                    if mode:lower() == "number" then
+                        local val = tonumber(newbox.Box.Text)
+                        if val then
+                            spawn(function()
+                                func(newbox.Box.Text)
+                            end)
+                        else newbox.Box.Text = ""
+                        end
+                    elseif mode:lower() == "string" then
+                        spawn(function()
+                            func(newbox.Box.Text)
+                        end)
+                    else newbox.Box.Text = ""
+                    end
+                end)
+			end
+        end
+        return NewPage
+    end
+    function NewPages.DestroyGui()
+        MainWindow:Destroy()
+    end
+    return NewPages
+end
+
+local axsaxsaxs = library.CreateWindow({Name = ""})
+local axsaxs = axsaxsaxs.CreatePage({Name = ""})
+local axs = axsaxs.CreateToggle({Name = "",Callback = function(bool) print("") end})
+local axss = axsaxs.CreateButton({Name = "",Callback = function() print("") end})
+local axsss = axsaxs.CreateBox({Name = "",Mode = "string",Callback = function() print("") end})
+axsaxsaxs.DestroyGui()
+return library
