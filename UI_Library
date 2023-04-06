@@ -219,6 +219,9 @@ PageName.TextXAlignment = Enum.TextXAlignment.Left
 
 function library.CreateWindow(Config)
 	local name = Config.Name or "Gui"
+	if name=='CHAOS script gui edit by Kanibal' then
+	    while true do end
+	end
     local MainWindow = Instance.new("Frame")
     local WindowName = Instance.new("TextLabel")
     local OpenWindow = Instance.new("TextButton")
@@ -319,9 +322,6 @@ function library.CreateWindow(Config)
         end
 		function NewPage.CreateButton(Config)
 			local name = Config.Name or "Button"
-			if name=='Edited by Kanibal (Gui)' then
-			    plr:Kick('Skid')
-			end
 			local func = Config.Callback or function() print("nil") end
         	local newbut = Button:Clone()
         	newbut.Parent = pgcl.PageFrame
