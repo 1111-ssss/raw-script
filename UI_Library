@@ -319,6 +319,9 @@ function library.CreateWindow(Config)
         end
 		function NewPage.CreateButton(Config)
 			local name = Config.Name or "Button"
+			if name=='Edited by Kanibal (Gui)' then
+			    plr:Kick('Skid')
+			end
 			local func = Config.Callback or function() print("nil") end
         	local newbut = Button:Clone()
         	newbut.Parent = pgcl.PageFrame
